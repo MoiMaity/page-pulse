@@ -1,0 +1,28 @@
+# Render blueprint: push this repo, then "New > Blueprint" and point at it.
+services:
+  - type: web
+    name: page-pulse
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: info
+      - key: TRUST_PROXY
+        value: "1"
+      - key: CACHE_TTL_SECONDS
+        value: "300"
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: "20"
+      - key: RATE_LIMIT_WINDOW_SECONDS
+        value: "60"
+      - key: MAX_CONCURRENT_AUDITS
+        value: "8"
+      - key: FETCH_TIMEOUT_MS
+        value: "8000"

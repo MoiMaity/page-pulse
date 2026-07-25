@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page Pulse — read a page's vital signs</title>
+    <meta
+      name="description"
+      content="Page Pulse fetches a URL once and reports what it found: status and redirects, document weight, headings and alt text, caching and security headers."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 18h6l3-9 5 18 4-13 3 4h7' fill='none' stroke='%231F5FE0' stroke-width='2.5'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <p class="eyebrow">Page Pulse<span class="eyebrow-rule" aria-hidden="true"></span>URL audit service</p>
+        <h1>Read a page's vital signs.</h1>
+        <p class="lede">
+          One request, one fetch. Page Pulse reports what a URL actually sends back — status and redirects, document
+          weight, headings and alt text, caching and security headers — and scores it out of 100.
+        </p>
+      </header>
+
+      <section class="console" aria-labelledby="run-heading">
+        <h2 id="run-heading" class="sr-only">Run an audit</h2>
+
+        <svg class="trace" viewBox="0 0 600 120" role="img" aria-labelledby="trace-title" preserveAspectRatio="none">
+          <title id="trace-title">Waveform showing one peak per audit category, taller peaks meaning higher scores</title>
+          <line class="trace-baseline" x1="0" y1="60" x2="600" y2="60" />
+          <polyline id="trace-line" class="trace-line" points="0,60 600,60" />
+        </svg>
+        <ol class="trace-legend" id="trace-legend" hidden></ol>
+
+        <form id="audit-form" novalidate>
+          <div class="field">
+            <label for="url">Page address</label>
+            <div class="input-row">
+              <input
+                id="url"
+                name="url"
+                type="text"
+                inputmode="url"
+                autocomplete="url"
+                spellcheck="false"
+                placeholder="example.com/pricing"
+                required
+              />
+              <button type="submit" id="submit">Run audit</button>
+            </div>
+          </div>
+
+          <div class="options">
+            <label class="option">
+              <span>Cache window</span>
+              <input id="maxAge" name="maxAge" type="number" min="0" max="86400" step="30" placeholder="300" />
+              <span class="unit">seconds</span>
+            </label>
+            <label class="option option-check">
+              <input id="fresh" name="fresh" type="checkbox" />
+              <span>Skip the cache and refetch</span>
+            </label>
+          </div>
+        </form>
+
+        <p class="status" id="status" role="status" aria-live="polite">
+          Nothing measured yet. Enter an address to start.
+        </p>
+      </section>
+
+      <section id="report" class="report" hidden aria-labelledby="report-heading">
+        <h2 id="report-heading" class="sr-only">Audit report</h2>
+
+        <div class="verdict">
+          <div class="verdict-score">
+            <span class="grade" id="grade">—</span>
+            <span class="score" id="overall">—</span>
+            <span class="score-label">overall</span>
+          </div>
+          <dl class="verdict-facts" id="facts"></dl>
+        </div>
+
+        <div class="bars" id="bars"></div>
+
+        <div class="checks" id="checks"></div>
+
+        <details class="raw">
+          <summary>Raw JSON response</summary>
+          <pre id="raw"></pre>
+        </details>
+      </section>
+
+      <section class="contract" aria-labelledby="contract-heading">
+        <h2 id="contract-heading">The same audit over HTTP</h2>
+        <pre class="snippet"><code>curl -s "https://YOUR-DEPLOYMENT/api/audit?url=example.com" | jq .result.scores</code></pre>
+        <p class="contract-note">
+          <code>GET /api/audit</code> and <code>POST /api/audit</code> accept <code>url</code>, an optional
+          <code>maxAge</code> in seconds, and <code>fresh=true</code> to bypass the cache. Every response carries an
+          <code>X-Request-Id</code>; every error carries a stable <code>code</code>. Full contract in the README.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <a href="https://digitalheroesco.com" rel="noopener">Built for Digital Heroes Training Task</a>
+      </p>
+    </footer>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

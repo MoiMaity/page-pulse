@@ -1,0 +1,43 @@
+{
+  "name": "page-pulse",
+  "version": "1.0.0",
+  "description": "Production-grade URL audit service: fetches a page and scores it on availability, SEO, accessibility, performance and security.",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [
+    "seo",
+    "audit",
+    "lighthouse",
+    "express",
+    "api"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "compression": "^1.7.5",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "pino": "^9.5.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "eslint": "^9.15.0",
+    "globals": "^15.12.0",
+    "supertest": "^7.0.0",
+    "vitest": "^2.1.8"
+  }
+}
