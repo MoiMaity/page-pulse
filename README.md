@@ -4,8 +4,8 @@ A URL audit service. Give it an address, it fetches the page once and reports wh
 
 This is the production build of the task: the interesting part is not the audit, it is everything wrapped around it. Validation and SSRF protection, a hard timeout and byte cap on every outbound fetch, a bounded concurrency queue that sheds load instead of collapsing, a configurable cache window, per-client rate limiting, one structured log line per request with a traceable request ID, one error shape for every failure, and a test suite that runs offline in CI on every push.
 
-- **Live:** `https://<your-deployment>` *(fill in after deploying — see [Deploy](#deploy))*
-- **Repo:** `https://github.com/<your-username>/page-pulse`
+- **Live:** `https://page-pulse-oozv.onrender.com/` 
+- **Repo:** `https://github.com/MoiMaity/page-pulse`
 
 ---
 
